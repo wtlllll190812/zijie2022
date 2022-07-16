@@ -63,7 +63,6 @@
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE //主光源层级阴影是否开启
             #pragma multi_compile _ _SHADOWS_SOFT //软阴影
 
-
             half4 frag(v2f i) :SV_TARGET
             {
                 float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
