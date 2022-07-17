@@ -12,11 +12,17 @@ public class Curve : MonoBehaviour
 
     private Vector3[] normals;
     private Vector3[] vertices;
+    private Vector4[] tangents;
     private Vector3 targetPos;
+    private Quaternion targetRot;
 
     void Start()
     {
-        Calculate();
+        //Calculate();
+        meshFilter.sharedMesh.RecalculateNormals();
+        vertices = meshFilter.sharedMesh.vertices;
+        normals = meshFilter.sharedMesh.normals;
+        tangents = meshFilter.sharedMesh.tangents;
         targetPos = transform.position;
         StartCoroutine(Move());
     }
@@ -24,19 +30,21 @@ public class Curve : MonoBehaviour
     void FixedUpdate()
     {
         transform.position=Vector3.Lerp(transform.position, targetPos, speed);
+        transform.rotation= Quaternion.Lerp(transform.rotation,targetRot,speed);
+        Debug.DrawRay(transform.position, transform.forward, Color.red);
     }
     private IEnumerator Move()
     {
         int count = vertices.Length - 1;
-        Quaternion q=Quaternion.identity;
         while (canMove)
         {
             if (count <= 0)
                 count = vertices.Length - 1;
             targetPos = vertices[count];
-            Debug.Log(transform.forward);
-            q.SetLookRotation(normals[count], transform.up);
-            transform.rotation = q;
+            Quaternion q=Quaternion.identity;
+            q.SetLookRotation(-meshFilter.transform.TransformDirection(tangents[count]), meshFilter.transform.TransformDirection(normals[count]));
+            targetRot = q;
+            Debug.DrawRay(transform.position,transform.forward);
             //transform.LookAt(transform.position + Vector3.Cross(normals[count], transform.right), normals[count]);
             count -= 2;
             yield return new WaitForSeconds(0.1f);
@@ -58,33 +66,33 @@ public class Curve : MonoBehaviour
             vertext_end = meshTr.TransformPoint(vertices[i]);
 
             if (i == 0)
-            {
                 vertext_start = vertext_end;
-                continue;
-            }
             else if (i == 1)
-            {
                 vertext_middle = vertext_end;
-                continue;
+            else
+            {
+                Vector3 startToMiddle = vertext_middle - vertext_start;
+                Vector3 middleToEnd = vertext_end - vertext_middle;
+
+                Vector3 normal = Vector3.Cross(middleToEnd, startToMiddle).normalized;
+
+                vertext_start = vertext_middle;
+                vertext_middle = vertext_end;
+                normals[i] = normal;
+                vertices[i] = vertext_start;
             }
-            Vector3 startToMiddle = vertext_middle - vertext_start;
-            Vector3 middleToEnd = vertext_end - vertext_middle;
-
-            Vector3 normal = Vector3.Cross(middleToEnd, startToMiddle).normalized;
-
-            vertext_start = vertext_middle;
-            vertext_middle = vertext_end;
-            normals[i] = normal;
-            vertices[i] = vertext_start;
         }
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        for (int i = 0; i < vertices.Length; i += 2)
+        Vector3 pre = vertices[0];
+        for (int i = 1; i < vertices.Length; i ++)
         {
-            Gizmos.DrawRay(vertices[i], normals[i]);
+            Gizmos.DrawRay(meshFilter.transform.TransformPoint(vertices[i]), meshFilter.transform.TransformDirection(tangents[i]));
+            pre = vertices[i];
+            //Gizmos.DrawRay(vertices[i], normals[i]);
         }
     }
 }

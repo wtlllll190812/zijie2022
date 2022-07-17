@@ -74,7 +74,8 @@
                 half3 worldNormal=normalize(i.worldNormal);
                 half lambert=saturate(dot(worldNormal,lightDir)*shadow);
 
-                half4 finalRGB=_BaseColor*SAMPLE_TEXTURE2D(_RampMap,sampler_RampMap,half2(lambert, lambert));
+                _BaseColor=_BaseColor;//*SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
+                half4 finalRGB=_BaseColor*(SAMPLE_TEXTURE2D(_RampMap,sampler_RampMap,half2(lambert, lambert)));
                 return finalRGB;
             }
             ENDHLSL
