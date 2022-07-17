@@ -17,6 +17,8 @@ public class ObjectSpawner : MonoBehaviour
     }
     public IEnumerator GenObj()
     {
+        while(!GameManager.instance.gameStarted)
+            yield return null;
         for (int i = 0; i < 10; i++)
         {
             Spawn();

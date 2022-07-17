@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public Transform sun;
     public Transform player;
     public UnityEvent gameEnd;
+    public bool gameStarted=false;
 
     private int _score;
     private Vector3 targetPos;
@@ -37,5 +38,10 @@ public class GameManager : MonoBehaviour
     {
         sun.localPosition = Vector3.Lerp(sun.localPosition, targetPos,0.1f);
         sun.parent.transform.LookAt(player.position,Vector3.forward);
+    }
+    
+    public void GameStart()
+    {
+        gameStarted = true;
     }
 }
