@@ -106,9 +106,9 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 2147483647
+    m_Bits: 256
   m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
+  m_VolumeFrameworkUpdateModeOption: 0
   m_RenderPostProcessing: 1
   m_Antialiasing: 2
   m_AntialiasingQuality: 2
@@ -132,6 +132,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angles: {x: 0, y: 0}
+  oriPosition: {x: 0, y: 0, z: 0}
+  oriQuaternion: {x: 0, y: 0, z: 0, w: 0}
+  player: {fileID: 5075498894783312737}
+  oriTr: {fileID: 0}
 --- !u!1 &5075498894783312736
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 5075498894783312736}
   m_LocalRotation: {x: -0.46245128, y: -0.43937513, z: -0.58451134, w: 0.5014328}
   m_LocalPosition: {x: -2.6485465, y: 0.29577565, z: -0.0053248107}
-  m_LocalScale: {x: 0.100000024, y: 0.100000024, z: 0.1}
+  m_LocalScale: {x: 0.100000024, y: 0.10000002, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 946959637362887230}
