@@ -261,10 +261,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 395dbda5a6acbc6449b902c0adb11b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objPref: {fileID: 0}
+  objPref: {fileID: 5875774664153301672, guid: 39979805e1de5624989857d237ca26f8, type: 3}
   distance: 10
   interval: 2
-  offset: 2
+  offset: 0.7
   objList:
   - name: dog
     tex1: {fileID: 2800000, guid: c0d2f5fbdc0b2374381e4223fb6fbd27, type: 3}
@@ -586,6 +586,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: e1b8dbb7790f240408bf49d46c4f5726,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: e1b8dbb7790f240408bf49d46c4f5726,
+        type: 3}
       propertyPath: m_CastShadows
       value: 2
       objectReference: {fileID: 0}
@@ -602,14 +607,15 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e1b8dbb7790f240408bf49d46c4f5726,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8164078558771037576, guid: e1b8dbb7790f240408bf49d46c4f5726,
         type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7635826562936255635, guid: e1b8dbb7790f240408bf49d46c4f5726, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e1b8dbb7790f240408bf49d46c4f5726, type: 3}
 --- !u!33 &1339147019 stripped
 MeshFilter:
