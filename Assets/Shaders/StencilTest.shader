@@ -8,6 +8,7 @@
     {
         Pass
         {
+            Cull off
             ZWrite off
             ZTest off
             ColorMask 0

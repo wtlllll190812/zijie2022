@@ -8,6 +8,7 @@
     }
     SubShader
     {
+        Cull off
         Tags
         {"RenderPipeline" = "UniversalRenderPipeline" "RenderType" = "Opaque"}
 
@@ -55,7 +56,7 @@
         ENDHLSL
         pass
         {
-            Tags{ "LightMode" = "LightweightForward" }
+            Tags{ "LightMode" = "UniversalForward" }
             Stencil
             {
                 Ref 0
