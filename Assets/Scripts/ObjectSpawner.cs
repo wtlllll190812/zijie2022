@@ -17,18 +17,14 @@ public class ObjectSpawner : MonoBehaviour
     }
     public IEnumerator GenObj()
     {
-        while(true)
+        for (int i = 0; i < 10; i++)
         {
-            int verIndex = Random.Range(0, curve.vertices.Length);
-            verIndex -= verIndex % distance;
-            if(!point.Contains(verIndex))
-            {
-                point.Add(verIndex);
-                int texindex = Random.Range(0, objList.Count);
-                Quaternion q = Quaternion.identity;
-                q.SetLookRotation(-curve.meshFilter.transform.TransformDirection(curve.tangents[verIndex]), curve.meshFilter.transform.TransformDirection(curve.normals[verIndex]));
-                Spawn(Random.Range(0, texindex), curve.vertices[verIndex], q);
-            }
+            Spawn();
+        }
+        yield return new WaitForSeconds(interval);
+        while (true)
+        {
+            Spawn();
             yield return new WaitForSeconds(interval);
         }
     }
@@ -44,16 +40,27 @@ public class ObjectSpawner : MonoBehaviour
     //    }
     //}
 
-    public void Spawn(int index, Vector3 pos,Quaternion rat)
+    public void Spawn()
     {
-        var newObj = Instantiate(objPref, pos, rat);
-        newObj.transform.Translate(Vector3.right*Random.Range(-offset,offset),Space.Self);
-        var obj = newObj.transform.GetChild(0);
-        Material mat = obj.GetComponent<MeshRenderer>().material;
-        mat.SetTexture("_Tex1", objList[index].tex1);
-        mat.SetTexture("_Tex2", objList[index].tex2);
-        obj.GetComponent<Images>().imageName = objList[index].name;
-        newObj.transform.SetParent(transform);
+        int verIndex = Random.Range(0, curve.vertices.Length);
+        verIndex -= verIndex % distance;
+        if (!point.Contains(verIndex))
+        {
+            point.Add(verIndex);
+            int texindex = Random.Range(0, objList.Count);
+            Quaternion quat = Quaternion.identity;
+            quat.SetLookRotation(-curve.meshFilter.transform.TransformDirection(curve.tangents[verIndex]), curve.meshFilter.transform.TransformDirection(curve.normals[verIndex]));
+
+            int index = Random.Range(0, texindex);
+            var newObj = Instantiate(objPref, curve.vertices[verIndex], quat);
+            newObj.transform.Translate(Vector3.right * Random.Range(-offset, offset), Space.Self);
+            var obj = newObj.transform.GetChild(0);
+            Material mat = obj.GetComponent<MeshRenderer>().material;
+            mat.SetTexture("_Tex1", objList[index].tex1);
+            mat.SetTexture("_Tex2", objList[index].tex2);
+            obj.GetComponent<Images>().imageName = objList[index].name;
+            newObj.transform.SetParent(transform);
+        }
     }
 }
 [System.Serializable]
