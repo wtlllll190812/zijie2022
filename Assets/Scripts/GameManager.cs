@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,10 +11,10 @@ public class GameManager : MonoBehaviour
     {
         set 
         {
-            if(score==endScore)
+            _score = value;
+            if (_score == endScore)
                 gameEnd?.Invoke();
             targetPos = new(1.2f * score / endScore, sun.localPosition.x, sun.localPosition.z);
-            _score = value;
         }
         get { return _score; }
     }
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
     public UnityEvent gameEnd;
     public bool gameStarted=false;
 
-    private int _score;
+    public int _score;
     private Vector3 targetPos;
 
     void Awake()
@@ -34,6 +35,12 @@ public class GameManager : MonoBehaviour
             Destroy(this);
     }
 
+    public void GameEnd()
+    {
+        gameStarted = false;
+        //SceneManager.LoadScene(0);
+    }
+
     void Update()
     {
         sun.localPosition = Vector3.Lerp(sun.localPosition, targetPos,0.1f);
@@ -42,6 +49,12 @@ public class GameManager : MonoBehaviour
     
     public void GameStart()
     {
+        score = 0;
         gameStarted = true;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

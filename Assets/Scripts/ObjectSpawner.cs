@@ -11,10 +11,13 @@ public class ObjectSpawner : MonoBehaviour
     public List<ImageData> objList=new List<ImageData>();
     public HashSet<int> point=new HashSet<int>();
     public Curve curve;
+
+    private List<GameObject> objs=new List<GameObject>();
     void Start()
     {
         StartCoroutine(GenObj());
     }
+
     public IEnumerator GenObj()
     {
         while(!GameManager.instance.gameStarted)
@@ -31,6 +34,13 @@ public class ObjectSpawner : MonoBehaviour
         }
     }
 
+    public void Clear()
+    {
+        for (int i = 0; i < objs.Count; i++)
+        {
+            Destroy(objs[i]);
+        }
+    }
     //public void Spawn(string name,Transform tr)
     //{
     //    int index = objNameList.IndexOf(name);
@@ -62,6 +72,8 @@ public class ObjectSpawner : MonoBehaviour
             mat.SetTexture("_Tex2", objList[index].tex2);
             obj.GetComponent<Images>().imageName = objList[index].name;
             newObj.transform.SetParent(transform);
+
+            objs.Add(newObj);
         }
     }
 }
