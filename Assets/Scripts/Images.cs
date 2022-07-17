@@ -1,18 +1,17 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Images : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private Material mat;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        mat=GetComponent<MeshRenderer>().material;
+    }
+    void OnMouseDown()
+    {
+        mat.SetFloat("_currentTex",1.0f);
     }
 }

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class Curve : MonoBehaviour
 {
     public MeshFilter meshFilter;
-    public Transform pos;
     public float speed;
     public bool canMove = true;
 

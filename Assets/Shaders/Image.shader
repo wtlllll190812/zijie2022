@@ -47,7 +47,7 @@ Shader "Custom/image"
             o.pos = TransformObjectToHClip(v.vertex);
             o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
             o.worldNormal=TransformObjectToWorldNormal(v.normal);
-            o.uv = TRANSFORM_TEX(v.uv,_Tex2);
+            o.uv = TRANSFORM_TEX(v.uv,_Tex1);
             return o;
         }
 
@@ -80,11 +80,27 @@ Shader "Custom/image"
                 half3 worldNormal=normalize(i.worldNormal);
                 half lambert=saturate(dot(worldNormal,lightDir));
 
-                half4 finalRGB=_BaseColor*(lambert+0.5f);
+                half4 finalRGB=_BaseColor;
                 return finalRGB;
             }
             ENDHLSL
         }
+        pass {
+            Tags{ "LightMode" = "ShadowCaster" }
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
+            
+            float4 frag(v2f i) : SV_Target
+            {
+                half4 _BaseColor=SAMPLE_TEXTURE2D(_Tex1,sampler_Tex1,i.uv);
+                clip(_BaseColor.a-0.000001f);
+                return _BaseColor;
+            }
+            ENDHLSL
+        }
+
         // pass
         // {
             //     Tags{ "LightMode" = "SRPDefaultUnlit" }
@@ -119,6 +135,6 @@ Shader "Custom/image"
             //     }
             //     ENDHLSL
         // }
-        UsePass "Universal Render Pipeline/Lit/ShadowCaster"
+        // UsePass "Universal Render Pipeline/Lit/ShadowCaster"
     }
 }
