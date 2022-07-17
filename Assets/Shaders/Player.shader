@@ -74,7 +74,7 @@ Shader "Custom/Player"
                 half3 worldNormal=normalize(i.worldNormal);
                 half lambert=saturate(dot(worldNormal,lightDir));
 
-                half4 finalRGB=_BaseColor;
+                half4 finalRGB=half4(_BaseColor.xxx*(shadow+0.1f),_BaseColor.a);
                 return finalRGB;
             }
             ENDHLSL
