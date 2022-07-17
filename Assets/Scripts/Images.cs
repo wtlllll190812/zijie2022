@@ -20,7 +20,8 @@ public class Images : MonoBehaviour
         if (c - 0.1f <= -1)
         {
             GameManager.instance.score++;
-            GetComponent<Animator>().enabled = false;
+            GetComponent<Animator>().enabled = true;
+            GetComponent<MeshCollider>().enabled = false;
         }
         while (c<1.0f)
         {

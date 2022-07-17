@@ -3,6 +3,7 @@
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _testId ("_testId", int) = 1
     }
     SubShader
     {
@@ -15,7 +16,7 @@
             Tags {"Queue"="AlphaTest" "IgnoreProjector"="True" "RenderType"="TransparentCutout"}
             Stencil
             {
-                Ref 1
+                Ref [_testId]
                 Comp always
                 pass replace
             }

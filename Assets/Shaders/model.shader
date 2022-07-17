@@ -59,8 +59,8 @@
             Tags{ "LightMode" = "UniversalForward" }
             Stencil
             {
-                Ref 0
-                Comp Equal
+                Ref 1
+                Comp NotEqual
             }
             HLSLPROGRAM
             #pragma vertex vert
