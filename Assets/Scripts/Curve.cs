@@ -81,15 +81,15 @@ public class Curve : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Vector3 pre = vertices[0];
-        for (int i = 1; i < vertices.Length; i ++)
-        {
-            Gizmos.DrawRay(vertices[i], meshFilter.transform.TransformDirection(normals[i]));
-            pre = vertices[i];
-            //Gizmos.DrawRay(vertices[i], normals[i]);
-        }
-    }
+    //void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.yellow;
+    //    Vector3 pre = vertices[0];
+    //    for (int i = 1; i < vertices.Length; i ++)
+    //    {
+    //        Gizmos.DrawRay(vertices[i], meshFilter.transform.TransformDirection(normals[i]));
+    //        pre = vertices[i];
+    //        //Gizmos.DrawRay(vertices[i], normals[i]);
+    //    }
+    //}
 }

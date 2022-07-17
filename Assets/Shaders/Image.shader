@@ -4,6 +4,7 @@ Shader "Custom/image"
     {
         _Tex1("Tex1",2D) = "White"{}
         _Tex2("Tex2",2D) = "White"{}
+        _NoiseMap("NoiseMap",2D) = "White"{}
         _currentTex("currentTex",float)=0
     }
     SubShader
@@ -19,12 +20,15 @@ Shader "Custom/image"
         CBUFFER_START(UnityPerMaterial)         
             float4 _Tex1_ST;
             float4 _Tex2_ST;
+            float4 _NoiseMap_ST;
             float _currentTex;
         CBUFFER_END
         TEXTURE2D(_Tex1);
         TEXTURE2D(_Tex2);
+        TEXTURE2D(_NoiseMap);
         SAMPLER(sampler_Tex1);
         SAMPLER(sampler_Tex2);
+        SAMPLER(sampler_NoiseMap);
 
 
         struct a2v
@@ -70,7 +74,8 @@ Shader "Custom/image"
 
             half4 frag(v2f i) :SV_TARGET
             {
-                half4 _BaseColor=lerp(SAMPLE_TEXTURE2D(_Tex1,sampler_Tex1,i.uv),SAMPLE_TEXTURE2D(_Tex2,sampler_Tex1,i.uv),_currentTex);
+                half x=saturate(_currentTex+SAMPLE_TEXTURE2D(_NoiseMap,sampler_NoiseMap,i.uv).r);
+                half4 _BaseColor=lerp(SAMPLE_TEXTURE2D(_Tex1,sampler_Tex1,i.uv),SAMPLE_TEXTURE2D(_Tex2,sampler_Tex1,i.uv),x);
                 clip(_BaseColor.a-0.1f);
                 float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
                 Light mainLight = GetMainLight(SHADOW_COORDS);

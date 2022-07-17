@@ -17,7 +17,12 @@ public class Images : MonoBehaviour
     IEnumerator Display()
     {
         float c = mat.GetFloat("_currentTex");
-        while(c<1.0f)
+        if (c - 0.1f <= -1)
+        {
+            GameManager.instance.score++;
+            GetComponent<Animator>().enabled = false;
+        }
+        while (c<1.0f)
         {
             mat.SetFloat("_currentTex", c);
             c += 0.1f;

@@ -1,4 +1,4 @@
-﻿Shader "Unlit/StencilTest"
+﻿Shader "Custom/StencilTest"
 {
     Properties
     {

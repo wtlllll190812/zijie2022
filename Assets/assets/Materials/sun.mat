@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: sun
-  m_Shader: {fileID: 4800000, guid: a69e68c614ce6c34b8cfb8a4b15810d6, type: 3}
+  m_Shader: {fileID: 4800000, guid: b3f3bc4481579d2429c2f5f5daabe308, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
