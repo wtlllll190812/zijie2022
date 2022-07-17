@@ -55,6 +55,12 @@
         ENDHLSL
         pass
         {
+            Tags{ "LightMode" = "LightweightForward" }
+            Stencil
+            {
+                Ref 0
+                Comp Equal
+            }
             HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -75,8 +81,40 @@
                 half lambert=saturate(dot(worldNormal,lightDir)*shadow);
 
                 _BaseColor=_BaseColor;//*SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
-                half4 finalRGB=_BaseColor*(SAMPLE_TEXTURE2D(_RampMap,sampler_RampMap,half2(lambert, lambert)));
+                half4 finalRGB=_BaseColor*(SAMPLE_TEXTURE2D(_RampMap,sampler_RampMap,half2(lambert, lambert))+0.1f);
                 return finalRGB;
+            }
+            ENDHLSL
+        }
+        pass
+        {
+            Stencil
+            {
+                Ref 1
+                Comp Equal
+            }
+            HLSLPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS //主光源阴影
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS_CASCADE //主光源层级阴影是否开启
+            #pragma multi_compile _ _SHADOWS_SOFT //软阴影
+
+
+            half4 frag(v2f i) :SV_TARGET
+            {
+                float4 SHADOW_COORDS = TransformWorldToShadowCoord(i.worldPos);
+                Light mainLight = GetMainLight(SHADOW_COORDS);
+                half shadow = mainLight.shadowAttenuation;
+                
+                half3 lightDir=normalize(_MainLightPosition.xyz);
+                half3 worldNormal=normalize(i.worldNormal);
+                half lambert=saturate(dot(worldNormal,lightDir)*shadow);
+
+                _BaseColor=_BaseColor;//*SAMPLE_TEXTURE2D(_MainTex,sampler_MainTex,i.uv);
+                half4 finalRGB=_BaseColor*(SAMPLE_TEXTURE2D(_RampMap,sampler_RampMap,half2(lambert, lambert))+0.1f);
+                return _BaseColor;
             }
             ENDHLSL
         }
