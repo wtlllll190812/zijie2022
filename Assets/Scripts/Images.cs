@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Images : MonoBehaviour
 {
     private Material mat;
-    public string name;
+    public string imageName;
     void Awake()
     {
         mat=GetComponent<MeshRenderer>().material;

@@ -8,7 +8,7 @@ public class ObjectSpawner : MonoBehaviour
     public int distance;
     public float interval;
     public List<ImageData> objList=new List<ImageData>();
-    public HashSet<int> point;
+    public HashSet<int> point=new HashSet<int>();
     public Curve curve;
 
     void Start()
@@ -21,16 +21,15 @@ public class ObjectSpawner : MonoBehaviour
         {
             int verIndex = Random.Range(0, curve.vertices.Length);
             verIndex -= verIndex % distance;
-            if(point.Contains(verIndex))
-                point.Add(verIndex);
-            else
+            if(!point.Contains(verIndex))
             {
+                point.Add(verIndex);
                 int texindex = Random.Range(0, objList.Count);
                 Quaternion q = Quaternion.identity;
                 q.SetLookRotation(-curve.meshFilter.transform.TransformDirection(curve.tangents[verIndex]), curve.meshFilter.transform.TransformDirection(curve.normals[verIndex]));
                 Spawn(Random.Range(0, texindex), curve.vertices[verIndex], q);
-                yield return new WaitForSeconds(interval);
             }
+            yield return new WaitForSeconds(interval);
         }
     }
 

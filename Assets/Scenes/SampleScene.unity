@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objPref: {fileID: 602757051503603233}
   distance: 10
-  interval: 2
+  interval: 0.1
   objList:
   - name: dog
     tex1: {fileID: 2800000, guid: c0d2f5fbdc0b2374381e4223fb6fbd27, type: 3}
