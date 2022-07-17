@@ -12,6 +12,16 @@ public class Images : MonoBehaviour
     }
     void OnMouseDown()
     {
-        mat.SetFloat("_currentTex",1.0f);
+        StartCoroutine(Display());
+    }
+    IEnumerator Display()
+    {
+        float c = mat.GetFloat("_currentTex");
+        while(c<1.0f)
+        {
+            mat.SetFloat("_currentTex", c);
+            c += 0.1f;
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 }

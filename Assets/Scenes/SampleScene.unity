@@ -859,37 +859,37 @@ PrefabInstance:
     - target: {fileID: 5075498894783312737, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.6485465
+      value: -2.6571875
       objectReference: {fileID: 0}
     - target: {fileID: 5075498894783312737, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.29577565
+      value: 0.21918805
       objectReference: {fileID: 0}
     - target: {fileID: 5075498894783312737, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0053248107
+      value: -0.02228396
       objectReference: {fileID: 0}
     - target: {fileID: 5075498894783312737, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.50143176
+      value: 0.5141177
       objectReference: {fileID: 0}
     - target: {fileID: 5075498894783312737, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.4624501
+      value: -0.4580695
       objectReference: {fileID: 0}
     - target: {fileID: 5075498894783312737, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.43937752
+      value: -0.43997017
       objectReference: {fileID: 0}
     - target: {fileID: 5075498894783312737, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5845114
+      value: -0.5764387
       objectReference: {fileID: 0}
     - target: {fileID: 5075498894783312737, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}
@@ -905,6 +905,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5075498894783312738, guid: 3097816e8ced01244a98aeda4c51944c,
+        type: 3}
+      propertyPath: speed
+      value: 0.001
+      objectReference: {fileID: 0}
+    - target: {fileID: 5075498894783312738, guid: 3097816e8ced01244a98aeda4c51944c,
+        type: 3}
+      propertyPath: canMove
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5075498894783312738, guid: 3097816e8ced01244a98aeda4c51944c,
         type: 3}

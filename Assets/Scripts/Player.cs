@@ -1,18 +1,20 @@
-﻿using System.Collections;
+﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public MeshRenderer mr;
+    public Texture currTexture;
+    private Material material;
+
     void Start()
     {
-        
+        material = mr.material;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetTex()
     {
-        
+        material.SetTexture("_MainTex", currTexture);
     }
 }

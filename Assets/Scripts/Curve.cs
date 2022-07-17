@@ -46,7 +46,7 @@ public class Curve : MonoBehaviour
             Debug.DrawRay(transform.position,transform.forward);
             //transform.LookAt(transform.position + Vector3.Cross(normals[count], transform.right), normals[count]);
             count -= 2;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
         yield return null;
     }
