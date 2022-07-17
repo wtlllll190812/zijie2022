@@ -7,10 +7,10 @@ public class ObjectSpawner : MonoBehaviour
     public GameObject objPref;
     public int distance;
     public float interval;
+    public float offset;
     public List<ImageData> objList=new List<ImageData>();
     public HashSet<int> point=new HashSet<int>();
     public Curve curve;
-
     void Start()
     {
         StartCoroutine(GenObj());
@@ -47,11 +47,12 @@ public class ObjectSpawner : MonoBehaviour
     public void Spawn(int index, Vector3 pos,Quaternion rat)
     {
         var newObj = Instantiate(objPref, pos, rat);
+        newObj.transform.Translate(Vector3.right*Random.Range(-offset,offset),Space.Self);
         var obj = newObj.transform.GetChild(0);
         Material mat = obj.GetComponent<MeshRenderer>().material;
         mat.SetTexture("_Tex1", objList[index].tex1);
         mat.SetTexture("_Tex2", objList[index].tex2);
-        obj.GetComponent<Images>().imageName = mat.name;
+        obj.GetComponent<Images>().imageName = objList[index].name;
         newObj.transform.SetParent(transform);
     }
 }
