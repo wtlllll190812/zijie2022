@@ -7,17 +7,15 @@ public class Curve : MonoBehaviour
     public MeshFilter meshFilter;
     public float speed;
     public bool canMove = true;
+    public Vector3[] normals;
+    public Vector3[] vertices;
+    public Vector4[] tangents;
 
-
-    private Vector3[] normals;
-    private Vector3[] vertices;
-    private Vector4[] tangents;
     private Vector3 targetPos;
     private Quaternion targetRot;
 
-    void Start()
+    void Awake()
     {
-        //Calculate();
         meshFilter.sharedMesh.RecalculateNormals();
         vertices = meshFilter.sharedMesh.vertices;
         normals = meshFilter.sharedMesh.normals;
@@ -89,7 +87,7 @@ public class Curve : MonoBehaviour
         Vector3 pre = vertices[0];
         for (int i = 1; i < vertices.Length; i ++)
         {
-            Gizmos.DrawRay(meshFilter.transform.TransformPoint(vertices[i]), meshFilter.transform.TransformDirection(tangents[i]));
+            Gizmos.DrawRay(vertices[i], meshFilter.transform.TransformDirection(normals[i]));
             pre = vertices[i];
             //Gizmos.DrawRay(vertices[i], normals[i]);
         }

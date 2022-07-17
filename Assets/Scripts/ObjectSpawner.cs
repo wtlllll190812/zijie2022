@@ -5,16 +5,32 @@ using System.Collections.Generic;
 public class ObjectSpawner : MonoBehaviour
 {
     public GameObject objPref;
-    public List<ImageData> objNameList=new List<ImageData>();
     public int distance;
     public float interval;
+    public List<ImageData> objList=new List<ImageData>();
+    public HashSet<int> point;
+    public Curve curve;
 
+    void Start()
+    {
+        StartCoroutine(GenObj());
+    }
     public IEnumerator GenObj()
     {
         while(true)
         {
-            Spawn(Random.Range(0,objNameList.Count),transform);
-            yield return new WaitForSeconds(interval);
+            int verIndex = Random.Range(0, curve.vertices.Length);
+            verIndex -= verIndex % distance;
+            if(point.Contains(verIndex))
+                point.Add(verIndex);
+            else
+            {
+                int texindex = Random.Range(0, objList.Count);
+                Quaternion q = Quaternion.identity;
+                q.SetLookRotation(-curve.meshFilter.transform.TransformDirection(curve.tangents[verIndex]), curve.meshFilter.transform.TransformDirection(curve.normals[verIndex]));
+                Spawn(Random.Range(0, texindex), curve.vertices[verIndex], q);
+                yield return new WaitForSeconds(interval);
+            }
         }
     }
 
@@ -29,13 +45,18 @@ public class ObjectSpawner : MonoBehaviour
     //    }
     //}
 
-    public void Spawn(int index, Transform tr)
+    public void Spawn(int index, Vector3 pos,Quaternion rat)
     {
-        var newObj = Instantiate(objPref, tr);
-        newObj.GetComponent<MeshRenderer>().material.SetTexture("_Tex1", objTexList1[index]);
-        newObj.GetComponent<MeshRenderer>().material.SetTexture("_Tex2", objTexList2[index]);
+        var newObj = Instantiate(objPref, pos, rat);
+        var obj = newObj.transform.GetChild(0);
+        Material mat = obj.GetComponent<MeshRenderer>().material;
+        mat.SetTexture("_Tex1", objList[index].tex1);
+        mat.SetTexture("_Tex2", objList[index].tex2);
+        obj.GetComponent<Images>().imageName = mat.name;
+        newObj.transform.SetParent(transform);
     }
 }
+[System.Serializable]
 public struct ImageData
 { 
     public string name;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Images : MonoBehaviour
 {
     private Material mat;
-
+    public string name;
     void Awake()
     {
         mat=GetComponent<MeshRenderer>().material;
@@ -19,7 +19,6 @@ public class Images : MonoBehaviour
         float c = mat.GetFloat("_currentTex");
         while(c<1.0f)
         {
-            Debug.Log("sdsd");
             mat.SetFloat("_currentTex", c);
             c += 0.1f;
             yield return new WaitForSeconds(0.1f);
