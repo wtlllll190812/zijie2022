@@ -22,6 +22,7 @@ public class Images : MonoBehaviour
             GameManager.instance.score++;
             GetComponent<Animator>().enabled = true;
             GetComponent<MeshCollider>().enabled = false;
+            GetComponent<AudioSource>().enabled = true;
         }
         while (c<1.0f)
         {

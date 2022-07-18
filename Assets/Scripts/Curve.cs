@@ -13,7 +13,8 @@ public class Curve : MonoBehaviour
 
     private Vector3 targetPos;
     private Quaternion targetRot;
-
+    private int path;
+    
     void Awake()
     {
         meshFilter.sharedMesh.RecalculateNormals();
@@ -29,7 +30,21 @@ public class Curve : MonoBehaviour
         transform.position=Vector3.Lerp(transform.position, targetPos, speed);
         transform.rotation= Quaternion.Lerp(transform.rotation,targetRot,speed);
         Debug.DrawRay(transform.position, transform.forward, Color.red);
+        
     }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            path = -1;
+        }
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            path = 1;
+        }
+    }
+
     private IEnumerator Move()
     {
         int count = vertices.Length - 1;
@@ -37,7 +52,7 @@ public class Curve : MonoBehaviour
         {
             if (count <= 0)
                 count = vertices.Length - 1;
-            targetPos = vertices[count];
+            targetPos = vertices[count];// + transform.InverseTransformVector(transform.right * path/10);
             Quaternion q=Quaternion.identity;
             q.SetLookRotation(-meshFilter.transform.TransformDirection(tangents[count]), meshFilter.transform.TransformDirection(normals[count]));
             targetRot = q;
